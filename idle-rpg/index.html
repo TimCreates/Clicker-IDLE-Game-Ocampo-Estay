@@ -14,11 +14,21 @@
     <p>Attack: <span id="playerAtk"></span></p>
     <p>Defense: <span id="playerDef"></span></p>
     <p>Gold: <span id="gold"></span></p>
+    <div class="battlefield">
+  <div class="character">
+    <img id="playerImg" src="https://i.imgur.com/6X12F6v.png">
+    <p>🧙 Player</p>
+  </div>
   </div>
 
   <div class="box">
     <h2>Enemy (Level <span id="enemyLvl"></span>)</h2>
     <p>HP: <span id="enemyHp"></span></p>
+     <div class="character">
+    <img id="enemyImg" src="https://i.imgur.com/Z6X8FqT.png">
+    <p>👹 Enemy</p>
+  </div>
+</div>
   </div>
 
   <div class="box">
@@ -26,6 +36,7 @@
     <button onclick="upgradeAttack()">Upgrade Attack (+2) [20 gold]</button>
     <button onclick="upgradeDefense()">Upgrade Defense (+1) [15 gold]</button>
   </div>
+  
 
   <script src="game.js"></script>
 </body>
