@@ -17,24 +17,3 @@ button {
   padding: 15px;
   margin: 10px;
 }
-.battlefield {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin: 20px;
-}
-
-.character img {
-  width: 120px;
-  transition: transform 0.2s;
-}
-
-/* attack animations */
-.attack {
-  transform: translateX(20px);
-}
-
-.hit {
-  transform: scale(0.9);
-  filter: brightness(1.5);
-}
