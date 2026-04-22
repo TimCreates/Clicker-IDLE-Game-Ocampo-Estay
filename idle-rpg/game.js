@@ -19,17 +19,37 @@ function spawnEnemy() {
 }
 
 function gameLoop() {
-  // Player attacks
+  const playerImg = document.getElementById("playerImg");
+  const enemyImg = document.getElementById("enemyImg");
+
+  // Player attack animation
+  playerImg.classList.add("attack");
+  setTimeout(() => playerImg.classList.remove("attack"), 200);
+
   enemy.hp -= player.attack;
+
+  // Enemy hit effect
+  enemyImg.classList.add("hit");
+  setTimeout(() => enemyImg.classList.remove("hit"), 200);
 
   // Enemy attacks
   player.hp -= Math.max(0, enemy.attack - player.defense);
 
+  // Player hit effect
+  playerImg.classList.add("hit");
+  setTimeout(() => playerImg.classList.remove("hit"), 200);
+
   // Enemy dies
   if (enemy.hp <= 0) {
-    player.gold += enemy.reward;
     enemyLevel++;
-    spawnEnemy();
+    player.gold += enemy.reward;
+
+    // little "death" effect
+    enemyImg.style.opacity = 0;
+    setTimeout(() => {
+      enemyImg.style.opacity = 1;
+      spawnEnemy();
+    }, 300);
   }
 
   // Player dies
