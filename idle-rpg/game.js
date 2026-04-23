@@ -8,6 +8,7 @@ let player = {
 
 let enemyLevel = 1;
 let enemy = {};
+let gameRunning = true;
 
 function spawnEnemy() {
   enemy = {
@@ -18,43 +19,50 @@ function spawnEnemy() {
   };
 }
 
+setInterval(gameLoop, 2000); // from 1000 → 2000 (2 seconds)
+
 function gameLoop() {
+  if (!gameRunning) return;
+
   const playerImg = document.getElementById("playerImg");
   const enemyImg = document.getElementById("enemyImg");
 
-  // Player attack animation
+  // Player attack
   playerImg.classList.add("attack");
   setTimeout(() => playerImg.classList.remove("attack"), 200);
 
   enemy.hp -= player.attack;
 
-  // Enemy hit effect
   enemyImg.classList.add("hit");
   setTimeout(() => enemyImg.classList.remove("hit"), 200);
+
+  // Check if enemy dies FIRST
+  if (enemy.hp <= 0) {
+    gameRunning = false;
+    player.gold += enemy.reward;
+
+    setTimeout(() => {
+      alert("🎉 VICTORY! You defeated the enemy!");
+    }, 200);
+
+    return;
+  }
 
   // Enemy attacks
   player.hp -= Math.max(0, enemy.attack - player.defense);
 
-  // Player hit effect
   playerImg.classList.add("hit");
   setTimeout(() => playerImg.classList.remove("hit"), 200);
 
-  // Enemy dies
-  if (enemy.hp <= 0) {
-    enemyLevel++;
-    player.gold += enemy.reward;
-
-    // little "death" effect
-    enemyImg.style.opacity = 0;
-    setTimeout(() => {
-      enemyImg.style.opacity = 1;
-      spawnEnemy();
-    }, 300);
-  }
-
-  // Player dies
+  // Check if player dies
   if (player.hp <= 0) {
-    player.hp = player.maxHp;
+    gameRunning = false;
+
+    setTimeout(() => {
+      alert("💀 GAME OVER! You were defeated.");
+    }, 200);
+
+    return;
   }
 
   updateUI();
